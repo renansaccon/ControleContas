@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ControleContas</string>
+    <string name="insira_o_valor">Insira o valor</string>
+    <string name="ver_lan_amento">Ver Lançamento</string>
+    <string name="lan_ar">Lançar</string>
+    <string name="saldo">Saldo</string>
+    <string name="selecione_a_data">dd/mm/aa</string>
+    <string name="data">Data</string>
+    <string name="detalhe">Detalhe</string>
+    <string name="tipo">Tipo</string>
+    <string name="valor">Valor</string>
+    <string name="credito">Crédito</string>
+    <string name="debito">Débito</string>
+</resources>

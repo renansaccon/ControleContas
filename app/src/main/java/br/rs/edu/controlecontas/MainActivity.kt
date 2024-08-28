@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
-        binding.tvDate.setOnClickListener{
+        binding.btData.setOnClickListener{
             DatePickerDialog(this, this, 2024, 8, 30).show()
         }
 
@@ -93,28 +93,39 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     }
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
         date = p3.toString()+"/"+p2.toString()+"/"+p1.toString()
+        binding.tvDate.setText(date)
     }
 
     private fun btSaldoOnClick() {
         val dialog = AlertDialog.Builder(this)
         val saldo = banco.btSaldoOnClick()
 
-        dialog.setTitle("O valor do saldo total é: ")
-        dialog.setMessage(saldo.toString())
+        dialog.setTitle("Saldo disponível ")
+        dialog.setMessage("R$ "+saldo.toString())
         dialog.setNegativeButton("Fechar",null)
         dialog.show()
-
     }
 
 
     private fun btLancarOnClick(){
-        banco.insert(Lancamento(0,itemSelected, date, itemSelectedDetalhe, binding.etValor.text.toString().toDouble() ) )
-        binding.etData.setText("")
-        binding.etValor.setText("")
-        binding.etValor.requestFocus()
-        Toast.makeText(this, "Dados incluídos com sucesso",Toast.LENGTH_SHORT).show()
+        if (binding.etValor.text.isEmpty() || binding.tvDate.text.toString() == resources.getString(R.string.selecione_a_data)){
+            Toast.makeText(this,"Preencha os campos corretamente", Toast.LENGTH_LONG).show()
+        }else {
+            banco.insert(
+                Lancamento(
+                    0,
+                    itemSelected,
+                    date,
+                    itemSelectedDetalhe,
+                    binding.etValor.text.toString().toDouble()
+                )
+            )
+            binding.tvDate.setText(R.string.selecione_a_data)
+            binding.etValor.setText("")
+            binding.etValor.requestFocus()
+            Toast.makeText(this, "Dados incluídos com sucesso", Toast.LENGTH_SHORT).show()
+        }
     }
-
 
 
     override fun onStart(){

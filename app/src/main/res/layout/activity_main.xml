@@ -82,22 +82,6 @@
         app:layout_constraintStart_toStartOf="@+id/tvValor"
         app:layout_constraintTop_toBottomOf="@+id/etValor" />
 
-    <EditText
-        android:id="@+id/etData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="@string/selecione_a_data"
-        android:importantForAutofill="no"
-        android:inputType="date"
-        android:minHeight="48dp"
-        android:textColorHint="#546E7A"
-        app:layout_constraintBottom_toBottomOf="@+id/tvData"
-        app:layout_constraintStart_toEndOf="@+id/tvData"
-        app:layout_constraintTop_toTopOf="@+id/tvData"
-        app:layout_constraintVertical_bias="0.482" />
-
     <Button
         android:id="@+id/btLançar"
         android:layout_width="wrap_content"
@@ -105,7 +89,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/lan_ar"
         app:layout_constraintStart_toStartOf="@+id/tvData"
-        app:layout_constraintTop_toBottomOf="@+id/etData" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
     <Button
         android:id="@+id/btLancamento"
@@ -129,8 +113,20 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="24dp"
+        android:text="@string/selecione_a_data"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/etValor"
+        app:layout_constraintTop_toBottomOf="@+id/etValor" />
+
+    <ImageButton
+        android:id="@+id/btData"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="@+id/tvDate"
+        app:srcCompat="@drawable/calendar_month_24dp_5f6368_fill0_wght400_grad0_opsz24"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

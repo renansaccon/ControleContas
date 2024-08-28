@@ -4,7 +4,7 @@
     <string name="ver_lan_amento">Ver Lançamento</string>
     <string name="lan_ar">Lançar</string>
     <string name="saldo">Saldo</string>
-    <string name="selecione_a_data">dd/mm/aa</string>
+    <string name="selecione_a_data">"Selecione a data"</string>
     <string name="data">Data</string>
     <string name="detalhe">Detalhe</string>
     <string name="tipo">Tipo</string>

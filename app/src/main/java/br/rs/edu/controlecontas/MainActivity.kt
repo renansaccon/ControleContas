@@ -1,23 +1,29 @@
 package br.rs.edu.controlecontas
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.rs.edu.controlecontas.databinding.ActivityMainBinding
 import br.rs.edu.controlecontas.db.DataBase
 import br.rs.edu.controlecontas.entity.Lancamento
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     lateinit var binding: ActivityMainBinding
     lateinit var itemSelected: String
     lateinit var itemSelectedDetalhe : String
     private lateinit var banco : DataBase
+    lateinit var date : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 opcoesDetalheSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                     override fun onItemSelected(p0 : AdapterView<*>?, p1: View?, p2: Int, p3: Long){
                         itemSelectedDetalhe = p0?.getItemAtPosition(p2).toString()
-                        System.out.println(itemSelected + "   " + itemSelectedDetalhe)
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -69,6 +74,10 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+        binding.tvDate.setOnClickListener{
+            DatePickerDialog(this, this, 2024, 8, 30).show()
+        }
+
     }
 
     private fun setButtonListener(){
@@ -77,18 +86,41 @@ class MainActivity : AppCompatActivity() {
             btLancarOnClick()
         }
 
+        binding.btSaldo.setOnClickListener{
+            btSaldoOnClick()
+        }
 
     }
+    override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+        date = p3.toString()+"/"+p2.toString()+"/"+p1.toString()
+    }
+
+    private fun btSaldoOnClick() {
+        val dialog = AlertDialog.Builder(this)
+        val saldo = banco.btSaldoOnClick()
+
+        dialog.setTitle("O valor do saldo total é: ")
+        dialog.setMessage(saldo.toString())
+        dialog.setNegativeButton("Fechar",null)
+        dialog.show()
+
+    }
+
 
     private fun btLancarOnClick(){
-        banco.insert(Lancamento(0,itemSelected, binding.etData.text.toString(), itemSelectedDetalhe, binding.etValor.text.toString() ) )
+        banco.insert(Lancamento(0,itemSelected, date, itemSelectedDetalhe, binding.etValor.text.toString().toDouble() ) )
         binding.etData.setText("")
         binding.etValor.setText("")
-        binding.etValor.setOnFocusChangeListener()
+        binding.etValor.requestFocus()
+        Toast.makeText(this, "Dados incluídos com sucesso",Toast.LENGTH_SHORT).show()
     }
+
+
 
     override fun onStart(){
         super.onStart()
         val registro = banco.cursorList()
     }
+
+
 }

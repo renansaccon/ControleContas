@@ -95,7 +95,8 @@
         android:textColorHint="#546E7A"
         app:layout_constraintBottom_toBottomOf="@+id/tvData"
         app:layout_constraintStart_toEndOf="@+id/tvData"
-        app:layout_constraintTop_toTopOf="@+id/tvData" />
+        app:layout_constraintTop_toTopOf="@+id/tvData"
+        app:layout_constraintVertical_bias="0.482" />
 
     <Button
         android:id="@+id/btLançar"
@@ -123,4 +124,13 @@
         android:text="@string/saldo"
         app:layout_constraintStart_toStartOf="@+id/btLancamento"
         app:layout_constraintTop_toBottomOf="@+id/btLancamento" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.appcompat.app.AlertDialog
 import br.rs.edu.controlecontas.entity.Lancamento
 
 class DataBase (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -24,11 +25,11 @@ class DataBase (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, 
         private const val DATABASE_NAME = "dbfile.sqlite"
         private const val DATABASE_VERSION = 1
         private const val TABLE_NAME = "lancamentos"
-        public const val COD = 0
-        public const val TIPO = 1
-        public const val DATA = 2
-        public const val DETALHE = 3
-        public const val VALOR = 4
+        const val COD = 0
+        const val TIPO = 1
+        const val DATA = 2
+        const val DETALHE = 3
+        const val VALOR = 4
     }
 
     fun insert ( lancamento: Lancamento){
@@ -57,5 +58,49 @@ class DataBase (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, 
         )
 
         return registro
+    }
+
+    fun btSaldoOnClick(): Double? {
+        val db = writableDatabase
+        val sumCredito = db.rawQuery("SELECT SUM(valor) FROM lancamentos WHERE tipo = 'Crédito'", null)
+        val sumDebito = db.rawQuery("SELECT SUM(valor) FROM lancamentos WHERE tipo = 'Débito'", null)
+        val cred : Double
+        val deb : Double
+
+        if (sumCredito.moveToNext()){
+            cred = sumCredito.getDouble(0)
+            System.out.println("Debito " + cred.toString().toDouble())
+        }else {
+            return null
+        }
+
+        if (sumDebito.moveToNext()){
+            deb = sumDebito.getDouble(0)
+            System.out.println("Debito " + deb.toString().toDouble())
+        }else {
+            return null
+        }
+            val saldo = cred-deb
+        System.out.println("Este é o saldo " + saldo.toString())
+
+        return saldo
+
+
+
+
+      /*  val soma = db.query(
+            "lancamento",
+            null,
+            "tipo=Crédito",
+            null,
+            null,
+            null,
+            null,
+        )
+        if (soma.moveToNext()){
+            val soma_credito =
+        } */
+
+
     }
 }

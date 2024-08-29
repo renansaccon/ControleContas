@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tvTipo"
+        android:id="@+id/tvTipoElemento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,9 +23,9 @@
         android:layout_width="182dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTipo"
-        app:layout_constraintStart_toEndOf="@+id/tvTipo"
-        app:layout_constraintTop_toTopOf="@+id/tvTipo" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvTipoElemento"
+        app:layout_constraintStart_toEndOf="@+id/tvTipoElemento"
+        app:layout_constraintTop_toTopOf="@+id/tvTipoElemento" />
 
     <TextView
         android:id="@+id/tvDetalhe"
@@ -34,7 +34,7 @@
         android:layout_marginTop="24dp"
         android:contentDescription="@string/detalhe"
         android:text="@string/detalhe"
-        app:layout_constraintStart_toStartOf="@+id/tvTipo"
+        app:layout_constraintStart_toStartOf="@+id/tvTipoElemento"
         app:layout_constraintTop_toBottomOf="@+id/spTipo" />
 
     <Spinner

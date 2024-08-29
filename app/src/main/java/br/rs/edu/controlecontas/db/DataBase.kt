@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.appcompat.app.AlertDialog
 import br.rs.edu.controlecontas.entity.Lancamento
 
 class DataBase (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -84,23 +83,6 @@ class DataBase (context : Context) : SQLiteOpenHelper ( context, DATABASE_NAME, 
         System.out.println("Este é o saldo " + saldo.toString())
 
         return saldo
-
-
-
-
-      /*  val soma = db.query(
-            "lancamento",
-            null,
-            "tipo=Crédito",
-            null,
-            null,
-            null,
-            null,
-        )
-        if (soma.moveToNext()){
-            val soma_credito =
-        } */
-
 
     }
 }

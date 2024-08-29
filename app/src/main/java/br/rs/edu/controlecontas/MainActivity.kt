@@ -2,6 +2,7 @@ package br.rs.edu.controlecontas
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import br.rs.edu.controlecontas.adapterlista.AdapterLista
 import br.rs.edu.controlecontas.databinding.ActivityMainBinding
 import br.rs.edu.controlecontas.db.DataBase
 import br.rs.edu.controlecontas.entity.Lancamento
@@ -90,7 +92,14 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             btSaldoOnClick()
         }
 
+        binding.btLancamento.setOnClickListener {
+            btLancamentosOnClick()
+        }
+
     }
+
+
+
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
         date = p3.toString()+"/"+p2.toString()+"/"+p1.toString()
         binding.tvDate.setText(date)
@@ -101,7 +110,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val saldo = banco.btSaldoOnClick()
 
         dialog.setTitle("Saldo disponível ")
-        dialog.setMessage("R$ "+saldo.toString())
+        dialog.setMessage("R$ "+saldo.toString().toDouble())
         dialog.setNegativeButton("Fechar",null)
         dialog.show()
     }
@@ -127,10 +136,35 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         }
     }
 
+    private fun btLancamentosOnClick() {
+        val intent = Intent(this, ListagemActivity::class.java)
+        startActivity(intent)
+    }
+
 
     override fun onStart(){
         super.onStart()
-        val registro = banco.cursorList()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
     }
 
 

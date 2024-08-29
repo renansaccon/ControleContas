@@ -46,11 +46,17 @@ class AdapterLista (val context : Context, val cursor: Cursor) : BaseAdapter(){
         val inflater = context.getSystemService( Context.LAYOUT_INFLATER_SERVICE ) as LayoutInflater
         val retorno = inflater.inflate(R.layout.lista_elemento, null)
 
+        val tvTipoLista = retorno.findViewById<TextView>(R.id.tvTipoElemento)
         val tvDetalheLista = retorno.findViewById<TextView>(R.id.tvDetalheElemento)
+        val tvValorLista = retorno.findViewById<TextView>(R.id.tvValorElemento)
+        val tvDataLista = retorno.findViewById<TextView>(R.id.tvDataElemento)
 
         cursor.moveToPosition( p0 )
 
+        tvTipoLista.setText(cursor.getString(TIPO))
         tvDetalheLista.setText(cursor.getString(DETALHE))
+        tvValorLista.setText(cursor.getString(VALOR))
+        tvDataLista.setText(cursor.getString(DATA))
 
         return retorno
     }

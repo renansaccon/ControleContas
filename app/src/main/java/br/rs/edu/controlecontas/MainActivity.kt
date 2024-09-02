@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +17,7 @@ import br.rs.edu.controlecontas.adapterlista.AdapterLista
 import br.rs.edu.controlecontas.databinding.ActivityMainBinding
 import br.rs.edu.controlecontas.db.DataBase
 import br.rs.edu.controlecontas.entity.Lancamento
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var itemSelectedDetalhe : String
     private lateinit var banco : DataBase
     lateinit var date : String
+    private lateinit var main : LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +80,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             }
         }
         binding.btData.setOnClickListener{
-            DatePickerDialog(this, this, 2024, 8, 30).show()
+            DatePickerDialog(  this, this, 2024, 8, 30).show()
         }
 
     }
@@ -101,6 +104,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+        val dater = "${p3}/${p2+1}/${p1}"
         date = p3.toString()+"/"+p2.toString()+"/"+p1.toString()
         binding.tvDate.setText(date)
     }
@@ -118,7 +122,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private fun btLancarOnClick(){
         if (binding.etValor.text.isEmpty() || binding.tvDate.text.toString() == resources.getString(R.string.selecione_a_data)){
-            Toast.makeText(this,"Preencha os campos corretamente", Toast.LENGTH_LONG).show()
+            Snackbar.make(main,"Preencha os campos corretamente", Snackbar.LENGTH_LONG).show()
         }else {
             banco.insert(
                 Lancamento(
@@ -132,7 +136,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             binding.tvDate.setText(R.string.selecione_a_data)
             binding.etValor.setText("")
             binding.etValor.requestFocus()
-            Toast.makeText(this, "Dados incluídos com sucesso", Toast.LENGTH_SHORT).show()
+            Snackbar.make(main,"Dados incluídos", Snackbar.LENGTH_LONG).show()
         }
     }
 

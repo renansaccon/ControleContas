@@ -19,16 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:padding="8dp">
+            android:padding="4dp">
 
             <TextView
                 android:id="@+id/tvTipoElemento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Tipo"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,8 +37,9 @@
                 android:id="@+id/tvDetalheElemento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="80dp"
                 android:text="Detalhe"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvTipoElemento"
                 app:layout_constraintStart_toEndOf="@+id/tvTipoElemento"
                 app:layout_constraintTop_toTopOf="@+id/tvTipoElemento" />
@@ -46,20 +48,43 @@
                 android:id="@+id/tvValorElemento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="2dp"
                 android:text="@string/valor"
-                app:layout_constraintStart_toStartOf="@+id/tvTipoElemento"
-                app:layout_constraintTop_toBottomOf="@+id/tvTipoElemento" />
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/tvReal"
+                app:layout_constraintTop_toTopOf="@+id/tvReal" />
 
             <TextView
                 android:id="@+id/tvDataElemento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:text="@string/data"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvValorElemento"
-                app:layout_constraintStart_toEndOf="@+id/tvValorElemento"
+                app:layout_constraintStart_toStartOf="@+id/tvDetalheElemento"
                 app:layout_constraintTop_toTopOf="@+id/tvValorElemento" />
+
+            <TextView
+                android:id="@+id/tvReal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="R$"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/tvTipoElemento"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoElemento" />
+
+            <ImageButton
+                android:id="@+id/ibDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:contentDescription="Excluir"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -68,4 +93,5 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         app:layout_constraintTop_toBottomOf="@id/card" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

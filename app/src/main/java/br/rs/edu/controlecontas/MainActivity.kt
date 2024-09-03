@@ -1,19 +1,16 @@
 package br.rs.edu.controlecontas
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
+import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import br.rs.edu.controlecontas.adapterlista.AdapterLista
+import androidx.constraintlayout.widget.ConstraintLayout
 import br.rs.edu.controlecontas.databinding.ActivityMainBinding
 import br.rs.edu.controlecontas.db.DataBase
 import br.rs.edu.controlecontas.entity.Lancamento
@@ -28,7 +25,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var itemSelectedDetalhe : String
     private lateinit var banco : DataBase
     lateinit var date : String
-    private lateinit var main : LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,9 +108,10 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private fun btSaldoOnClick() {
         val dialog = AlertDialog.Builder(this)
         val saldo = banco.btSaldoOnClick()
+        val format = DecimalFormat("#.00")
 
         dialog.setTitle("Saldo disponível ")
-        dialog.setMessage("R$ "+saldo.toString().toDouble())
+        dialog.setMessage("R$ "+format.format(saldo.toString().toDouble()))
         dialog.setNegativeButton("Fechar",null)
         dialog.show()
     }
@@ -122,21 +119,39 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private fun btLancarOnClick(){
         if (binding.etValor.text.isEmpty() || binding.tvDate.text.toString() == resources.getString(R.string.selecione_a_data)){
-            Snackbar.make(main,"Preencha os campos corretamente", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.btLanAr,"Preencha os campos corretamente", Snackbar.LENGTH_LONG).show()
         }else {
-            banco.insert(
-                Lancamento(
-                    0,
-                    itemSelected,
-                    date,
-                    itemSelectedDetalhe,
-                    binding.etValor.text.toString().toDouble()
+            if (itemSelected == resources.getString(R.string.credito)) {
+                banco.insert(
+                    Lancamento(
+                        0,
+                        itemSelected,
+                        date,
+                        itemSelectedDetalhe,
+                        binding.etValor.text.toString().toDouble()
+                    )
                 )
-            )
-            binding.tvDate.setText(R.string.selecione_a_data)
-            binding.etValor.setText("")
-            binding.etValor.requestFocus()
-            Snackbar.make(main,"Dados incluídos", Snackbar.LENGTH_LONG).show()
+                binding.tvDate.setText(R.string.selecione_a_data)
+                binding.etValor.setText("")
+                binding.etValor.requestFocus()
+                Snackbar.make(binding.btLanAr,"Dados incluídos com exito", Snackbar.LENGTH_LONG).show()
+
+            } else {
+                var etValorNegativo = -(binding.etValor.text.toString().toDouble())
+                banco.insert(
+                    Lancamento(
+                        0,
+                        itemSelected,
+                        date,
+                        itemSelectedDetalhe,
+                        etValorNegativo
+                    )
+                )
+                binding.tvDate.setText(R.string.selecione_a_data)
+                binding.etValor.setText("")
+                binding.etValor.requestFocus()
+                Snackbar.make(binding.btLanAr,"Dados incluídos com exito", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -149,6 +164,22 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     override fun onStart(){
         super.onStart()
         banco.cursorList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 

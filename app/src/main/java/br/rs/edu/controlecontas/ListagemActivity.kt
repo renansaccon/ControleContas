@@ -1,10 +1,7 @@
 package br.rs.edu.controlecontas
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import br.rs.edu.controlecontas.adapterlista.AdapterLista
 import br.rs.edu.controlecontas.databinding.ActivityListagemBinding
 import br.rs.edu.controlecontas.db.DataBase
@@ -12,7 +9,7 @@ import br.rs.edu.controlecontas.db.DataBase
 class ListagemActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListagemBinding
-    private lateinit var banco: DataBase
+    lateinit var banco: DataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +25,6 @@ class ListagemActivity : AppCompatActivity() {
         System.out.println("Criou variáveis")
 
         binding.lvListagem.adapter = adapter
-
     }
 
     override fun onStart() {

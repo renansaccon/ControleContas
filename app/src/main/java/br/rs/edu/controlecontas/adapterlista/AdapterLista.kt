@@ -21,7 +21,7 @@ import br.rs.edu.controlecontas.entity.Lancamento
 
 class AdapterLista (val context : Context, val cursor: Cursor) : BaseAdapter() {
 
-    private lateinit var banco : DataBase
+    private var banco : DataBase = DataBase(context) //Desta forma inicializa o DataBase para execução do btDeleteOnClick
 
     override fun getCount(): Int {
         return cursor.count
@@ -52,23 +52,25 @@ class AdapterLista (val context : Context, val cursor: Cursor) : BaseAdapter() {
         val format = DecimalFormat("#.00")
 
 
+
         val tvTipoLista = retorno.findViewById<TextView>(R.id.tvTipoElemento)
         val tvDetalheLista = retorno.findViewById<TextView>(R.id.tvDetalheElemento)
         val tvValorLista = retorno.findViewById<TextView>(R.id.tvValorElemento)
         val tvDataLista = retorno.findViewById<TextView>(R.id.tvDataElemento)
         val ibDelete = retorno.findViewById<ImageButton>(R.id.ibDelete)
+        val position : Int
 
 
         cursor.moveToPosition(p0)
 
+        position = cursor.getInt(COD)
         tvTipoLista.setText(cursor.getString(TIPO))
         tvDetalheLista.setText(cursor.getString(DETALHE))
         tvValorLista.setText(format.format(cursor.getDouble(VALOR)))
         tvDataLista.setText(cursor.getString(DATA))
-        System.out.println(p0)
         ibDelete.setOnClickListener {
-            System.out.println("Entrou no SetOnclick Listener")
-            banco.btDeleteOnClick(p0)
+            System.out.println("Esse é o valor de GETSTRING COD " + position)
+            banco.btDeleteOnClick(position)
         }
 
         return retorno

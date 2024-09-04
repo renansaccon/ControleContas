@@ -11,4 +11,9 @@
     <string name="valor">Valor</string>
     <string name="credito">Crédito</string>
     <string name="debito">Débito</string>
+    <string name="excluir">Excluir</string>
+    <string name="detalhe_spinner">Detalhe</string>
+    <string name="rs">R$</string>
+    <string name="tipo_elemento">Tipo</string>
+    <string name="espaco" />
 </resources>

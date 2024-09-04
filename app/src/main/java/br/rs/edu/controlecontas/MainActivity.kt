@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import br.rs.edu.controlecontas.databinding.ActivityMainBinding
 import br.rs.edu.controlecontas.db.DataBase
 import br.rs.edu.controlecontas.entity.Lancamento
@@ -20,11 +19,11 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     lateinit var itemSelected: String
     lateinit var itemSelectedDetalhe : String
     private lateinit var banco : DataBase
-    lateinit var date : String
+    private lateinit var date : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,9 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         val opcoesTipo = arrayOf(getString(R.string.credito), getString(R.string.debito))
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, opcoesTipo)
-        var opcoesTipoSpinner = binding.spTipo
+        val opcoesTipoSpinner = binding.spTipo
         opcoesTipoSpinner.adapter = adapter
-        var opcoesDetalheSpinner = binding.spDetalhe
+        val opcoesDetalheSpinner = binding.spDetalhe
 
         opcoesTipoSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
@@ -50,12 +49,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
                 if (itemSelected == resources.getString(R.string.credito)) {
                     val opcoesDetalhe = resources.getStringArray(R.array.opcoesSpinnerDetalhe)
-                    var adapterDetalhe =
+                    val adapterDetalhe =
                         ArrayAdapter(this@MainActivity, android.R.layout.simple_list_item_1, opcoesDetalhe)
                     opcoesDetalheSpinner.adapter = adapterDetalhe
                 } else {
                     val opcoesDetalhe = resources.getStringArray(R.array.opcoesSpinnerDetalhe2)
-                    var adapterDetalhe =
+                    val adapterDetalhe =
                         ArrayAdapter(this@MainActivity, android.R.layout.simple_list_item_1, opcoesDetalhe)
                     opcoesDetalheSpinner.adapter = adapterDetalhe
                 }
@@ -100,9 +99,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-        val dater = "${p3}/${p2+1}/${p1}"
         date = p3.toString()+"/"+p2.toString()+"/"+p1.toString()
-        binding.tvDate.setText(date)
+        binding.tvDate.text = date
     }
 
     private fun btSaldoOnClick() {
@@ -111,7 +109,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val format = DecimalFormat("#.00")
 
         dialog.setTitle("Saldo disponível ")
-        dialog.setMessage("R$ "+format.format(saldo.toString().toDouble()))
+        dialog.setMessage("R$ "+ format.format(saldo.toString().toDouble()))
         dialog.setNegativeButton("Fechar",null)
         dialog.show()
     }
@@ -132,12 +130,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     )
                 )
                 binding.tvDate.setText(R.string.selecione_a_data)
-                binding.etValor.setText("")
+                binding.etValor.setText(getString(R.string.espaco))
                 binding.etValor.requestFocus()
                 Snackbar.make(binding.btLanAr,"Dados incluídos com exito", Snackbar.LENGTH_LONG).show()
 
             } else {
-                var etValorNegativo = -(binding.etValor.text.toString().toDouble())
+                val etValorNegativo = -(binding.etValor.text.toString().toDouble())
                 banco.insert(
                     Lancamento(
                         0,
@@ -148,7 +146,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     )
                 )
                 binding.tvDate.setText(R.string.selecione_a_data)
-                binding.etValor.setText("")
+                binding.etValor.setText(getString(R.string.espaco))
                 binding.etValor.requestFocus()
                 Snackbar.make(binding.btLanAr,"Dados incluídos com exito", Snackbar.LENGTH_LONG).show()
             }

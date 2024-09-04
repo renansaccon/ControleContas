@@ -9,29 +9,51 @@ import br.rs.edu.controlecontas.db.DataBase
 class ListagemActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListagemBinding
-    lateinit var banco: DataBase
+    private lateinit var banco: DataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListagemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        System.out.println("Entrou no bindingActivity")
+        carrega()
 
+    }
+
+
+    fun carrega() {
         banco = DataBase(this)
 
         val lancamentos = banco.cursorList()
         val adapter = AdapterLista(this, lancamentos)
-        System.out.println("Criou variáveis")
 
         binding.lvListagem.adapter = adapter
     }
 
+
     override fun onStart() {
         super.onStart()
-        val lancamento = banco.cursorList()
+        carrega()
+        /*val lancamento = banco.cursorList()
         val adapter = AdapterLista (this, lancamento)
-        System.out.println("Criou variaves")
-        binding.lvListagem.adapter = adapter
+        binding.lvListagem.adapter = adapter */
+    }
+
+
+    override fun onRestart() {
+        super.onRestart()
+        carrega()
+        System.out.println("onRestart rodou")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        carrega()
+        System.out.println("onResume rodou")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        finish()
     }
 }
